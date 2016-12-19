@@ -1,17 +1,16 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './components/app';
-import PostIndex from './components/postIndex';
 
-const Greeting = () => {
-	return <div>Hello There!</div>;
-}
+import App from './components/app';
+import PostsIndex from './components/posts-index';
+import PostsNew from './components/posts-new';
+import PostsShow from './components/posts-show';
 
 export default (
-	<Route path="/" component={App}>
-		<IndexRoute component={PostIndex} />
-		<Route path="greet" component={Greeting} />
-		<Route path="greet24" component={Greeting} />
-		<Route path="greet3" component={Greeting} />
+	<Route path="/learn-route-blog" component={App}>
+		<IndexRoute component={PostsIndex} />
+		<Route path="posts/new" component={PostsNew} />
+		<Route path="posts/:id" component={PostsShow} />
+		// this.props.params.id in react-router
 	</Route>
 );
