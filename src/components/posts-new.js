@@ -17,13 +17,15 @@ class PostsNew extends Component {
 	}
 
 	onSubmit(props) {
-		console.log(props);
-		this.props.createPost(props)
-			.then(() => {
-				// blog post has been created, navigate to index
-				// We navigate by calling this.context.router.push with the new path to navigate to.
-				this.context.router.push('/learn-route-blog');
-			});
+		// this.props.createPost(props)
+		// 	.then(() => {
+		// 		// blog post has been created, navigate to index
+		// 		// We navigate by calling this.context.router.push with the new path to navigate to.
+		// 		this.context.router.push('/learn-route-blog');
+		// 	});
+
+		// With Redux Thunk
+		this.props.createPost(props); this.context.router.push('/learn-route-blog');
 	}
 
 	render() {
@@ -91,6 +93,12 @@ function validate(values) {
 
 // connect: 1st argument mapStateToProps, 2nd mapDispatchToProps
 // reduxForm: 1st argument form config, 2nd mapStateToProps, 3rd mapDispatchToProps
+
+// function mapDispatchToProps(dispatch) {
+// 	return bindActionCreators({
+// 		createPost: createPost
+// 	}, dispatch);
+// }
 
 export default reduxForm({
 	form: 'PostsNewForm',

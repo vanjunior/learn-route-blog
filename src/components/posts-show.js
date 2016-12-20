@@ -13,10 +13,14 @@ class PostsShow extends Component {
 	}
 
 	onDeleteClick() {
-		this.props.deletePost(this.props.params.id)
-			.then(() => {
-				this.context.router.push('/learn-route-blog');
-			});
+		// this.props.deletePost(this.props.params.id)
+		// 	.then(() => {
+		// 		this.context.router.push('/learn-route-blog');
+		// 	});
+
+		// With Redux Thunk
+		this.props.deletePost(this.props.params.id);
+		this.context.router.push('/learn-route-blog');
 	}
 
 	render() {
