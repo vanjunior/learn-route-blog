@@ -2,3 +2,32 @@ form a
 {
     margin-left: 5px;
 }
+
+
+/*
+React CSS Transition Group
+ */
+
+.fade-enter
+{
+    right: 100px;
+}
+
+.fade-enter-active
+{
+    right: 0;
+
+    transition: .5s ease-in all;
+}
+
+.fade-leave
+{
+    right: 0;
+}
+
+.fade-leave-action
+{
+    right: -100px;
+
+    transition: .5s ease-in all;
+}

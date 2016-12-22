@@ -6,6 +6,25 @@ import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
+import _ from 'lodash';
+
+const FIELDS = {
+	title: {
+		type: 'input',
+		label: 'Title for post',
+		validate: () => {
+
+		}
+	},
+	categories: {
+		type: 'input',
+		label: 'Enter some categories'
+	},
+	content: {
+		type: 'textarea',
+		label: 'Post Contents'
+	}
+};
 
 class PostsNew extends Component {
 	static contextTypes = {
@@ -28,6 +47,21 @@ class PostsNew extends Component {
 		this.props.createPost(props); this.context.router.push('/learn-route-blog');
 	}
 
+	renderField(fieldConfig, field) {
+		const fieldHelper = this.props.fields[field];
+		// console.log(fieldHelper);
+
+		return (
+			<div key={fieldHelper.name} className={`form-group ${this.dangerControl(fieldHelper)}`}>
+				<label>{ fieldConfig.label }</label>
+				<fieldConfig.type type="text" className="form-control" {...fieldHelper} />
+				<div className="text-help text-danger">
+					{fieldHelper.touched ? fieldHelper.error : ''}
+				</div>
+			</div>
+		);
+	}
+
 	render() {
 		// ES6 Syntax
 		const {
@@ -41,7 +75,9 @@ class PostsNew extends Component {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<h3>Create a New Post</h3>
-				<div className={`form-group ${this.dangerControl(title)}`}>
+				{_.map(FIELDS, this.renderField.bind(this))}
+
+				{/* <div className={`form-group ${this.dangerControl(title)}`}>
 					<label>Title</label>
 					<input type="text" className="form-control" {...title} />
 					<div className="text-help text-danger">
@@ -63,7 +99,7 @@ class PostsNew extends Component {
 					<div className="text-help text-danger">
 						{content.touched ? content.error : ''}
 					</div>
-				</div>
+				</div> */}
 
 				<button type="submit" className="btn btn-primary">Submit</button>
 				<Link to="/learn-route-blog" className="btn btn-danger">Cancel</Link>
@@ -76,17 +112,23 @@ class PostsNew extends Component {
 function validate(values) {
 	const errors = {};
 
-	if(! values.title) {
-		errors.title = 'Enter a title';
-	}
+	// if(! values.title) {
+	// 	errors.title = 'Enter a title';
+	// }
+	//
+	// if(! values.categories) {
+	// 	errors.categories = 'Enter a categories';
+	// }
+	//
+	// if(! values.content) {
+	// 	errors.content = 'Enter a content';
+	// }
 
-	if(! values.categories) {
-		errors.categories = 'Enter a categories';
-	}
-
-	if(! values.content) {
-		errors.content = 'Enter a content';
-	}
+	_.each(FIELDS, (type, field) => {
+		if(!values[field]) {
+			errors[field] = `Enter a ${field}`;
+		}
+	})
 
 	return errors;
 }
@@ -102,10 +144,6 @@ function validate(values) {
 
 export default reduxForm({
 	form: 'PostsNewForm',
-	fields: [
-		'title',
-		'categories',
-		'content'
-	],
+	fields: _.keys(FIELDS),
 	validate
 }, null, { createPost })(PostsNew);
