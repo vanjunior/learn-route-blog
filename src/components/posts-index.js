@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/index';
 import { Link } from 'react-router';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import GoodModal from './good-modal';
 
 class PostsIndex extends Component {
 
@@ -44,6 +45,10 @@ class PostsIndex extends Component {
 						{this.renderPosts()}
 					</ReactCSSTransitionGroup>
 				</ul>
+
+				{/* <GoodModal>
+					<h1>Hahaha</h1>
+				</GoodModal> */}
 			</div>
 		);
 	}

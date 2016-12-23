@@ -31,3 +31,22 @@ React CSS Transition Group
 
     transition: .5s ease-in all;
 }
+
+
+body .modal
+{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    bottom: 40px;
+    left: 40px;
+
+    display: block;
+
+    height: 100px;
+    padding: 10px;
+
+    border: 1px solid red;
+    outline: none;
+    background: #efefef;    ;
+}
